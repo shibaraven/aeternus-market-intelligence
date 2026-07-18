@@ -23,8 +23,10 @@ Write-Output "[2/8] Apply current tracked and intended untracked work"
 $patchFile = Join-Path $snapshot "clean-snapshot.patch"
 & git -C $projectRoot diff --binary --output=$patchFile -- .
 Assert-LastExitCode "git diff snapshot patch"
-& git -C $snapshot apply --binary $patchFile
-Assert-LastExitCode "git apply"
+if ((Get-Item -LiteralPath $patchFile).Length -gt 0) {
+    & git -C $snapshot apply --binary $patchFile
+    Assert-LastExitCode "git apply"
+}
 Remove-Item -LiteralPath $patchFile -Force
 $untracked = @(& git -C $projectRoot ls-files --others --exclude-standard)
 Assert-LastExitCode "git untracked-file listing"
