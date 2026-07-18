@@ -1,119 +1,239 @@
 # Aeternus Market Intelligence
 
-Aeternus Market Intelligence 是一套以瀏覽器操作的多市場投資分析工作台，聚焦台灣、日本與上海市場。專案採用 Flask、原生 HTML/CSS/JavaScript 與 SQLite，預設在本機執行，不需要 Node.js 建置流程。
+## Overview
 
-> 本專案提供的市場資料與分析結果僅供研究參考，不構成投資建議。
+Aeternus Market Intelligence is a local-first, browser-based market research workspace for Taiwan, Japan, and Shanghai equities. The Build Week edition adds an evidence-grounded GPT-5.6 research agent to the existing Flask application without replacing its charts, portfolio, alert, journal, scanner, report, or local Ollama features.
 
-## 主要功能
+Users choose a market and symbol, ask a research question, and receive a typed report whose technical, fundamental, risk, and backtest claims link to deterministic evidence records. A fixed synthetic Demo Mode lets reviewers complete the workflow without an OpenAI key or live market-data connection.
 
-- 多市場自選清單與 Yahoo Finance 報價
-- 日線、盤中走勢與 SMA、EMA、MACD、RSI、布林通道等技術指標
-- 技術訊號、策略回測、多週期共振與圖形辨識
-- 股票比較、條件掃描、異常偵測、風險分析與市場熱力圖
-- 交易日誌、投資組合配置、損益追蹤與分析
-- 價格/指標警報與瀏覽器通知
-- RSS 新聞彙整與規則式情緒分析
-- 週報、PDF 與 Excel 匯出
-- 選用本機 Ollama 模型產生 AI 分析，不會把對話送到雲端 AI API
-- 繁體中文、簡體中文、日文與英文介面
+> Research and educational use only. The application does not execute trades, provide personalized investment advice, guarantee outcomes, or guarantee returns.
 
-## 系統架構
+## Problem
+
+Market research often separates price charts, company data, risk statistics, and strategy tests into disconnected screens. General-purpose model answers can also sound precise without showing where a number came from. This project keeps calculations in testable application tools and gives GPT-5.6 the narrower job of planning, coordinating tools, comparing results, and explaining traceable evidence—including conflicts and uncertainty.
+
+## Key Features
+
+Existing before Build Week:
+
+- Multi-market watchlists, quotes, daily and intraday OHLCV charts
+- SMA, EMA, MACD, RSI, Bollinger Bands, stochastic, Williams %R, OBV, support, and resistance
+- Legacy strategy backtests, risk analysis, comparison, scanning, anomaly detection, and heatmaps
+- Fundamentals, RSS news, reports, Excel/PDF export, alerts, trade journal, and portfolio analytics
+- Optional local Ollama chat and a four-language responsive interface
+
+Added during Build Week:
+
+- GPT-5.6 Sol research agent using the OpenAI Responses API and structured function calling
+- Nine deterministic research capabilities covering symbols, profiles, prices, fundamentals, indicators, risk, backtests, comparisons, and supporting evidence
+- Strongly typed final synthesis and validation that rejects untraceable numerical claims
+- Evidence IDs, dates, currencies, units, methodologies, source labels, and tool timeline
+- Correctly compounded buy-and-hold versus SMA20/SMA50 comparison with next-session execution and stated costs
+- Dedicated AI Research UI with status, bull/bear cases, conflicts, uncertainties, warnings, and errors
+- Fixed, visibly synthetic Demo Mode that needs no private credential
+- Automated unit and API integration tests plus reproducible dependency pins
+
+## Architecture
 
 ```text
 Browser SPA (frontend/index.html)
-        │ JSON / streaming
+        │ same-origin JSON
         ▼
 Flask API (backend/app.py)
-   ├── Yahoo Finance / RSS
-   ├── SQLite (data/aeternus_market_intelligence.db)
-   └── Ollama localhost:11434（選用）
+        │
+        ├── Existing services: yfinance, RSS, SQLite, Ollama
+        │
+        └── Research boundary
+            ├── research_agent.py
+            │   └── OpenAI Responses API / GPT-5.6 Sol (live mode)
+            └── research_tools.py
+                ├── validation and evidence ledger
+                ├── technical and risk calculations
+                ├── buy-and-hold / SMA20-SMA50 comparison
+                └── fixed synthetic provider (demo mode)
 ```
 
-`backend/main.py` 是原始碼與 PyInstaller 執行檔共用的啟動器；它會準備可寫入的資料目錄、啟動 Flask，並自動開啟瀏覽器。
+All displayed financial numbers originate in deterministic tools. GPT receives tool outputs, returns qualitative structured fields with evidence IDs, and the server resolves those IDs into evidence cards. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for boundaries and request flow.
 
-## 快速啟動
+## Technology Stack
 
-需求：Python 3.12 或 3.13、pip。
+- Python 3.11–3.13
+- Flask 3.1.3 and Flask-CORS 6.0.2
+- OpenAI Python SDK 2.46.0 and Pydantic 2.13.4
+- pandas 3.0.3, NumPy 2.4.4, yfinance 1.3.0
+- SQLite and openpyxl
+- Native HTML, CSS, and JavaScript
+- Committed browser libraries: Lightweight Charts, Chart.js, SortableJS, html2canvas, and jsPDF
+- pytest 9.0.2 and PyInstaller 6.21.0
 
-Windows：
+## Prerequisites
+
+- Python 3.11, 3.12, or 3.13 with `venv` and `pip`
+- A modern browser
+- Internet access for installing Python packages; live equity data also depends on Yahoo Finance
+- Optional: an OpenAI API key for live GPT research
+- Optional: Ollama on `localhost:11434` for the separate legacy local-chat feature
+
+Demo Mode does not need an OpenAI key or market-data connection after dependencies are installed.
+
+## Installation
+
+Clone the Build Week branch:
+
+```bash
+git clone --branch build-week-2026 https://github.com/shibaraven/aeternus-market-intelligence.git
+cd aeternus-market-intelligence
+```
+
+Quick install and launch:
 
 ```bat
 start.bat
 ```
-
-macOS / Linux：
 
 ```bash
 chmod +x start.sh
 ./start.sh
 ```
 
-啟動腳本會建立專案內的 `.venv`、安裝依賴，然後開啟 [http://127.0.0.1:5000](http://127.0.0.1:5000)。
+Manual installation on Windows PowerShell:
 
-手動啟動：
-
-```bash
-python -m venv .venv
-# Windows: .venv\Scripts\python -m pip install -r backend\requirements.txt
-# macOS/Linux: .venv/bin/python -m pip install -r backend/requirements.txt
-python backend/main.py
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
 ```
 
-## 本機 AI（選用）
+Manual installation on macOS/Linux:
 
-AI 功能會連線到本機的 Ollama `http://localhost:11434`，預設模型為 `llama3.2`。未安裝或未啟動 Ollama 時，其餘市場分析功能仍可正常使用。
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r backend/requirements.txt
+```
 
-## 資料與環境變數
+## Configuration
 
-應用程式會在首次啟動時自動建立 SQLite 資料庫與週報目錄。這些執行期資料已由 `.gitignore` 排除，不會提交到 Git。
+The application reads configuration from the server process environment. `.env.example` is a reference; the application intentionally does not load a repository `.env` file automatically.
 
-| 變數 | 用途 | 預設值 |
+| Variable | Purpose | Default |
 | --- | --- | --- |
-| `AETERNUS_DATA` | SQLite、週報與使用者資料目錄 | `<專案>/data` |
-| `AETERNUS_FRONTEND` | 前端靜態檔案目錄 | `<專案>/frontend` |
+| `OPENAI_API_KEY` | Server-side credential for live GPT research | unset |
+| `OPENAI_MODEL` | Swappable Responses API model | `gpt-5.6-sol` |
+| `OPENAI_REASONING_EFFORT` | `none`, `low`, `medium`, `high`, `xhigh`, or `max` | `medium` |
+| `AETERNUS_DATA` | Writable database/report directory | `<project>/data` |
+| `AETERNUS_FRONTEND` | Frontend asset directory | `<project>/frontend` |
+| `AETERNUS_NO_BROWSER` | Set to `1` for noninteractive/server checks | unset |
+| `AETERNUS_DISABLE_BACKGROUND_TASKS` | Set to `1` for isolated tests | unset |
 
-## 建置 Windows 執行檔
+PowerShell live-mode example:
+
+```powershell
+$env:OPENAI_API_KEY = "your-key-in-your-shell-only"
+$env:OPENAI_MODEL = "gpt-5.6-sol"
+.\.venv\Scripts\python.exe backend\main.py
+```
+
+Never put a real key in source code, browser storage, a committed file, or a request body.
+
+## Running the Application
+
+Start from source:
+
+```powershell
+.\.venv\Scripts\python.exe backend\main.py
+```
+
+Open [http://127.0.0.1:5000](http://127.0.0.1:5000), then select **AI Research** in the header or mobile menu. The launcher binds to loopback only.
+
+Build the Windows portable folder:
 
 ```bat
 build.bat
 ```
 
-完成後的可攜式應用程式位於：
+Run `dist\AeternusMarketIntelligence\AeternusMarketIntelligence.exe`. Copy the entire output folder when moving it to another Windows computer.
 
-```text
-dist/AeternusMarketIntelligence/
+## Demo Mode
+
+Demo Mode is the recommended first evaluation path:
+
+1. Open **AI Research**.
+2. Keep **Fixed Demo** selected.
+3. Keep `AET-DEMO`, `1 year`, and the prefilled question.
+4. Select **Run AI Research**.
+5. Inspect the seven-step tool timeline, evidence cards, comparison, risk, conflicts, and disclaimer.
+
+Every demo price, company value, and result is synthetic, generated deterministically, and fixed through **2026-06-30**. The UI labels it `SYNTHETIC DEMO`; it is not current market data and GPT is not used in the credential-free fallback. Repeated requests produce the same analytical values.
+
+See [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) for the under-three-minute narration.
+
+## Testing
+
+Install development dependencies and run the suite:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r backend\requirements-dev.txt
+.\.venv\Scripts\python.exe -m pytest
 ```
 
-請移動整個資料夾，而不是只複製 `.exe`。
+The tests cover request and symbol validation, deterministic demo output, indicators, risk, compounded backtests, tool scope, unavailable data, typed model parsing, evidence enforcement, missing keys, the mocked Responses tool loop, research API behavior, disclaimer presence, and legacy health/UI availability.
 
-## 專案結構
+See [docs/VALIDATION_REPORT.md](docs/VALIDATION_REPORT.md) for commands and observed results.
 
-```text
-aeternus-market-intelligence/
-├── backend/
-│   ├── app.py                         # Flask API、分析邏輯與 SQLite
-│   ├── main.py                        # 原始碼/封裝版啟動器
-│   └── requirements.txt
-├── frontend/
-│   ├── index.html                     # 單頁前端
-│   └── vendor/                        # 固定版本的前端依賴
-├── data/                              # 執行期資料（Git 忽略）
-├── AeternusMarketIntelligence.spec    # PyInstaller 設定
-├── build.bat
-├── download_vendor.py
-├── start.bat
-└── start.sh
-```
+## How GPT-5.6 Is Used
 
-## 主要 API
+Live mode uses configurable `gpt-5.6-sol` through the OpenAI Responses API. GPT plans the investigation, calls strict deterministic functions, receives outputs under the original function `call_id`, compares evidence, and returns a Pydantic-validated synthesis. The server—not GPT—adds symbol metadata, dates, currency, full evidence objects, assumptions, warnings, and the disclaimer.
 
-- `/api/quote`、`/api/history`、`/api/intraday`、`/api/fundamentals`
-- `/api/analysis`、`/api/backtest`、`/api/resonance`、`/api/patterns`
-- `/api/compare`、`/api/scan`、`/api/anomalies`、`/api/risk`、`/api/heatmap`
-- `/api/journal`、`/api/portfolio/chart`、`/api/portfolio/analytics`
-- `/api/alerts`、`/api/news`、`/api/report/*`、`/api/export/excel`
-- `/api/ai/chat`、`/api/ai/models`
+Controls against invented figures include:
 
-## Repository
+- strict JSON schemas for every tool
+- request-scoped symbol, market, and period enforcement
+- typed structured output with extra fields forbidden
+- evidence-ID and evidence-category validation
+- rejection of model-authored numerical claims that cannot be matched to tool evidence
+- `store=False` on live Responses API calls
 
-[github.com/shibaraven/aeternus-market-intelligence](https://github.com/shibaraven/aeternus-market-intelligence)
+Official implementation references are linked in [docs/BUILD_WEEK.md](docs/BUILD_WEEK.md).
+
+## How Codex Was Used
+
+Codex audited the repository before architecture changes, mapped the existing Flask/JavaScript/SQLite system, implemented the isolated research layer and UI, added tests and documentation, corrected the Build Week comparison math, updated PyInstaller packaging, and ran source and packaged validation. The pre-existing application was extended rather than replaced. Human review remains responsible for Devpost content, real-key acceptance testing, product claims, and financial/legal suitability.
+
+## Build Week Additions
+
+The additions are intentionally isolated:
+
+- `backend/research_tools.py`: deterministic calculations, tool schemas, evidence ledger, and synthetic demo
+- `backend/research_agent.py`: GPT Responses orchestration, typed synthesis, and evidence validation
+- `/api/research/config`, `/api/research/symbols`, `/api/research/run`: safe server API boundary
+- AI Research page in `frontend/index.html`
+- `tests/`: unit and integration coverage
+- `docs/`: audit, design, demo, judge, and validation material
+- pinned runtime/development requirements and updated PyInstaller specification
+
+Detailed scope and tradeoffs are in [docs/BUILD_WEEK.md](docs/BUILD_WEEK.md).
+
+## Security and Data Handling
+
+- The OpenAI key remains server-side and is never returned by the configuration endpoint.
+- Live GPT mode sends the user's question, selected symbol context, instructions, and deterministic tool outputs to the OpenAI API. Demo fallback sends nothing to OpenAI.
+- Responses requests use `store=False`; provider-side handling is still governed by the applicable OpenAI terms and account settings.
+- CORS for API routes is restricted to local loopback origins, and the launcher binds to `127.0.0.1`.
+- Dynamic research content is HTML-escaped before insertion into the page.
+- Runtime SQLite data can contain watchlists, alerts, journal entries, and notes; `data/`, databases, `.env*`, builds, and virtual environments are Git-ignored.
+- This is a local single-user application without authentication or CSRF tokens. Do not expose it to an untrusted network.
+
+## Known Limitations
+
+- Live prices and fundamentals depend on unofficial Yahoo Finance behavior and may be delayed, incomplete, or unavailable.
+- Fundamental fields do not include complete filing-period provenance; unavailable fields remain unavailable rather than being filled by GPT.
+- The research comparison covers buy-and-hold and one SMA20/SMA50 long/cash rule; it is not an optimizer or forecast.
+- Backtests omit taxes, separate dividend cash flows, and market-impact modeling; transaction costs are stated in the result.
+- The synthetic demo is useful for workflow evaluation, not for conclusions about a real security.
+- No live OpenAI call is performed by the automated suite; the tool loop is tested with a protocol-compatible fake client so tests require no secret or network.
+- Existing legacy routes retain some baseline assumptions described in `docs/REPOSITORY_AUDIT.md`; Build Week accuracy guarantees apply to the isolated research tools, not every legacy metric.
+
+## Financial Disclaimer
+
+Aeternus Market Intelligence is for research and educational purposes only. It does not execute trades, provide personalized investment advice, guarantee outcomes, or guarantee returns. Historical and simulated performance does not guarantee future results. Market data may be delayed, incomplete, or inaccurate. Verify important information independently and consult a qualified professional where appropriate.
+
+Repository: [github.com/shibaraven/aeternus-market-intelligence](https://github.com/shibaraven/aeternus-market-intelligence)
