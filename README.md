@@ -166,6 +166,24 @@ Every demo price, company value, and result is synthetic, generated deterministi
 
 See [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) for the under-three-minute narration.
 
+## Reproducing Submission Media
+
+Submission tooling is isolated under `scripts/`; generated audio, recordings, videos, and judge ZIPs stay ignored under `submission-artifacts/`.
+
+```powershell
+cd scripts
+npm install
+cd ..
+.\.venv\Scripts\python.exe scripts\run_live_gpt_validation.py
+node scripts\record_build_week_demo.js
+powershell -ExecutionPolicy Bypass -File scripts\generate_voiceover.ps1
+powershell -ExecutionPolicy Bypass -File scripts\build_devpost_gallery.ps1
+powershell -ExecutionPolicy Bypass -File scripts\render_final_video.ps1
+powershell -ExecutionPolicy Bypass -File scripts\build_judge_package.ps1
+```
+
+The live validator must succeed before recording: the recorder accepts only its sanitized GPT-5.6 Sol report and otherwise fails closed. The workflow never records a terminal or browser profile. See [docs/DEMO_SHOT_LIST.md](docs/DEMO_SHOT_LIST.md), [docs/DEVPOST_SUBMISSION.md](docs/DEVPOST_SUBMISSION.md), and [docs/FINAL_SUBMISSION_CHECKLIST.md](docs/FINAL_SUBMISSION_CHECKLIST.md).
+
 ## Testing
 
 Install development dependencies and run the suite:

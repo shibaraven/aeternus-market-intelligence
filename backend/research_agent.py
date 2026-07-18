@@ -94,8 +94,14 @@ provided structured schema. Every evidence_ids entry must exactly match an ID
 returned by a deterministic tool. Include evidence that supports each
 assessment, and explain conflicts rather than hiding them.
 
+Keep evidence categories separated: technical_view may cite only technical.*
+or price.* IDs; fundamental_view only fundamental.* IDs; backtest_view only
+backtest.* IDs; and risk_view only risk.* IDs. Never cross-cite an ID into a
+different section even when it appears semantically related.
+
 Do not invent or recompute numerical values. Prefer qualitative language in
-narrative fields. If a number is essential, copy it exactly from tool output.
+narrative fields. Do not use Arabic numerals in any narrative field; the server
+hydrates all cited measurements from deterministic evidence after validation.
 Do not put dates, currency, symbol, market, period, model name, or disclaimer in
 the output; the server supplies those authoritative fields. Do not output a
 simple BUY or SELL verdict. State limitations and questions for further work.
@@ -605,7 +611,6 @@ class GPTResearchAgent:
             include=["reasoning.encrypted_content"],
             store=False,
             max_output_tokens=5000,
-            verbosity="medium",
         )
         if parsed_response.output_parsed is None:
             refusal = getattr(parsed_response, "output_text", "") or "No structured output returned."

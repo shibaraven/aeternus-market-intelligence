@@ -1,6 +1,6 @@
 # Validation Report
 
-Validation date: 2026-07-18 (Asia/Tokyo)
+Validation date: 2026-07-19 (Asia/Tokyo)
 
 Branch: `build-week-2026`
 
@@ -8,9 +8,7 @@ Environment: Windows, Python 3.11.9
 
 ## Outcome
 
-The source application, fixed Demo research workflow, deterministic live-data tool boundary, automated suite, and PyInstaller Windows package passed. The frozen executable was launched and exercised over HTTP, producing seven completed tool steps and 34 traceable demo evidence records.
-
-A real OpenAI request was not executed because `OPENAI_API_KEY` was not present in the validation environment. The Responses function-call loop and typed parse path were exercised with a protocol-compatible fake client. Live-key acceptance remains an explicit manual submission step.
+The source application, Fixed Demo workflow, deterministic live-data boundary, automated suite, PyInstaller Windows package, genuine GPT-5.6 Sol run, submission media, and judge package passed. The frozen executable produced seven completed tool steps and 34 traceable demo evidence records. The live OpenAI run returned `gpt-5.6-sol`, completed all seven required tools, and produced 37 evidence records that all passed structured-output and numerical-traceability validation.
 
 ## Commands executed and observed results
 
@@ -35,7 +33,7 @@ Observed:
 
 ```text
 ..................                                                       [100%]
-18 passed in 1.06s
+18 passed in 1.34s
 ```
 
 Coverage includes:
@@ -75,7 +73,7 @@ Observed: `18 passed in 3.47s`. This confirms tracked files alone contain the co
 node -e "/* parse every inline script from frontend/index.html with new Function */"
 ```
 
-Observed: Python compilation exited 0; `inline scripts parsed: 1`. The repository has no configured formatter or linter, so no formatter/linter result is claimed.
+Observed: Python compilation exited 0; `inline scripts parsed: 6`. The repository has no configured formatter or linter, so no formatter/linter result is claimed.
 
 ### Source HTTP smoke test
 
@@ -108,6 +106,28 @@ source: Yahoo Finance via yfinance
 
 The tested tools were price history, technical indicators, risk metrics, and strategy comparison. This confirms the live provider/tool boundary; provider availability can change independently.
 
+### Genuine GPT-5.6 Sol validation
+
+```powershell
+.\.venv\Scripts\python.exe scripts\run_live_gpt_validation.py
+```
+
+Observed on 2026-07-19:
+
+```text
+requested model:              gpt-5.6-sol
+actual API model:             gpt-5.6-sol
+reasoning effort:             medium
+required tools completed:     7 of 7
+tool events:                  7
+evidence records:             37
+referenced evidence records:  37
+structured output:            PASS
+numerical traceability:       PASS
+```
+
+The run used the real OpenAI Responses API. No fallback model was used. The committed record is sanitized; the full recording input remains Git-ignored.
+
 ### Windows package build
 
 ```powershell
@@ -136,6 +156,7 @@ analysis period: 2025-07-14 to 2026-06-30
 tool steps: 7
 evidence records: 34
 disclaimer present: true
+visible Evidence ID markup: true
 ```
 
 The exact executable process was then stopped. Generated `dist/` and `build_temp/` content remains Git-ignored.
@@ -152,10 +173,9 @@ Observed: no whitespace errors, no high-confidence OpenAI/GitHub/AWS/private-key
 
 ## Remaining warnings
 
-1. **Real GPT acceptance:** no OpenAI key was available, so one real Responses API request could not be validated. Configure a key and follow `JUDGE_TESTING_GUIDE.md` before recording an optional live segment.
-2. **Visual browser automation:** the bundled in-app browser-control runtime failed during setup with `Cannot redefine property: process`. HTTP, DOM-content, and JavaScript syntax checks passed, but the final responsive visual pass should be completed manually using the judge guide.
-3. **PyInstaller analysis:** the build emits warnings for optional/platform-specific imports from pandas, OpenAI, Pydantic, and related packages. The Windows executable started and completed the Demo route, so these warnings were nonblocking in the tested target.
-4. **External data:** Yahoo Finance can be delayed, incomplete, rate-limited, or unavailable. The fixed demo is the reliable offline-data evaluation path after installation.
+1. **PyInstaller analysis:** the build emits warnings for optional/platform-specific imports from pandas, OpenAI, Pydantic, and related packages. The Windows executable started and completed the Demo route, so these warnings were nonblocking in the tested target.
+2. **External data:** Yahoo Finance can be delayed, incomplete, rate-limited, or unavailable. The Fixed Demo is the reliable offline-data evaluation path after installation.
+3. **Publishing boundary:** YouTube publishing and the final Devpost submission remain user-confirmed account actions; no publication is claimed by this technical report.
 
 ## Known limitations
 
@@ -197,10 +217,58 @@ $env:OPENAI_MODEL = "gpt-5.6-sol"
 
 ## Manual verification checklist
 
-- [ ] Open AI Research at desktop and mobile widths.
-- [ ] Run Fixed Demo and confirm synthetic/GPT-not-used labels.
-- [ ] Expand evidence methods and inspect timeline, conflicts, uncertainties, and disclaimer.
-- [ ] Re-run and confirm analytical values are stable.
-- [ ] With a private shell key, run one live GPT request and confirm `gpt_used: true` and the configured model.
-- [ ] Confirm the key never appears in the page, network response, console, recording, or committed files.
-- [ ] Build or download the portable folder and run the same fixed demo on the target Windows version.
+- [x] Open AI Research at a 1920×1080 desktop viewport using automated browser control.
+- [x] Run Fixed Demo and confirm synthetic/GPT-not-used labels.
+- [x] Inspect evidence IDs, methods, timeline, conflicts, uncertainties, and disclaimer.
+- [x] Re-run and confirm 7 tools, 34 evidence records, and stable fixed-demo values.
+- [x] With a private shell key, run one live GPT request and confirm `gpt_used: true` and the configured model.
+- [x] Confirm the key never appears in the page, response artifact, console, recording, or committed files.
+- [x] Build the portable folder and run the same fixed demo on the current Windows target.
+
+## Submission-finalization checks (2026-07-19 JST)
+
+The current uncommitted submission work was revalidated after adding visible evidence IDs and fail-closed media tooling:
+
+```text
+pytest:                         18 passed in 1.34s
+compileall:                     PASS (backend, scripts, tests)
+pip check:                      No broken requirements found
+frontend inline JavaScript:    6 scripts parsed successfully
+Playwright package audit:      0 vulnerabilities
+credential-pattern scan:       PASS
+Fixed Demo source route:       7 tools / 34 evidence / GPT false
+Windows packaged Fixed Demo:   7 tools / 34 evidence / GPT false
+voiceover:                      PCM WAV, 48 kHz mono, 140.795 seconds
+voiceover measured level:       mean -16.2 dB / peak -1.5 dB
+live GPT validation:           PASS — gpt-5.6-sol / 7 tools / 37 evidence
+raw browser recording:         PASS — 1920×1080 / 139.240 seconds
+gallery:                       PASS — 6 of 6 PNGs / 1800×1200 / below 5 MB
+final MP4:                     PASS — 156.240 seconds / H.264 / AAC / 13,847,868 bytes
+final audio:                   PASS — -16.4 LUFS / true peak -1.4 dBFS
+judge ZIP:                     PASS — 15 files / 1,184,533 bytes
+submission readiness:          PASS — no failed checks
+```
+
+The final post-commit clean clone, tag, merge, and push remain required before technical completion. YouTube and Devpost publication remain explicitly user-confirmed manual actions.
+
+### Current-worktree clean-snapshot rehearsal
+
+After the submission scripts and gallery changes were added, `scripts/validate_clean_snapshot.ps1` cloned commit `aaaa162`, applied the current intended tracked and untracked changes into a new ignored directory, created a completely fresh Python 3.11 virtual environment, and installed only the documented dependency files. It also ran `npm ci` from the committed recorder lockfile.
+
+Observed on 2026-07-19:
+
+```text
+fresh-venv pytest:              18 passed in 3.51s
+fresh-venv pip check:           PASS
+npm audit:                      0 vulnerabilities
+Playwright Chromium launch:     PASS
+source app without API key:     PASS
+source Fixed Demo:              7 tools / 34 evidence / GPT false
+fresh PyInstaller build:        PASS
+packaged Fixed Demo:            7 tools / 34 evidence / GPT false
+packaged Evidence ID markup:    visible
+snapshot secret scan:           PASS
+packaged executable size:       18,361,552 bytes
+```
+
+This rehearsal validates the present patched worktree without treating uncommitted content as a final Git clone. The final post-commit clone must still be run after the live GPT, media, and package gates pass.

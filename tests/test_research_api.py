@@ -93,4 +93,5 @@ def test_research_ui_and_existing_routes_remain_available(client):
     assert "AI Research" in html
     assert "function openResearchPage" in html
     assert "SYNTHETIC DEMO" in html
+    assert "Evidence ID: " in html
     assert client.get("/api/health").status_code == 200

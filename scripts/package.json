@@ -1,0 +1,13 @@
+{
+  "name": "aeternus-submission-recorder",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Isolated Playwright tooling for the OpenAI Build Week demo recording.",
+  "type": "module",
+  "scripts": {
+    "record": "node record_build_week_demo.js"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1"
+  }
+}

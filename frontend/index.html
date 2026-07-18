@@ -1805,6 +1805,7 @@ html[data-theme="light"] .scard {
 .research-summary{font-size:13px;line-height:1.8;color:var(--text2);max-width:780px;margin-top:10px;}
 .research-section{border:1px solid var(--border);background:var(--bg2);border-radius:13px;padding:15px;margin-bottom:12px;}
 .research-section-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13px;font-weight:700;color:var(--text1);margin-bottom:8px;}
+.research-e-id{font-family:var(--mono);font-size:9px;color:var(--cyan);margin:3px 0 7px;overflow-wrap:anywhere;}
 .research-assessment{font-size:12px;line-height:1.75;color:var(--text2);margin-bottom:12px;}
 .research-evidence-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(205px,1fr));gap:8px;}
 .research-evidence{border:1px solid var(--border);background:var(--bg3);border-radius:9px;padding:10px;min-width:0;}
@@ -4354,6 +4355,7 @@ function researchEvidence(records) {
   return '<div class="research-evidence-grid">' + values.map(function(item) {
     return '<div class="research-evidence">' +
       '<div class="research-e-label">' + researchEsc(item.label) + '</div>' +
+      '<div class="research-e-id">Evidence ID: ' + researchEsc(item.id) + '</div>' +
       '<div><span class="research-e-value">' + researchEsc(item.value) + '</span>' +
       '<span class="research-e-unit">' + researchEsc(item.unit) + '</span></div>' +
       '<div class="research-e-source">Source: ' + researchEsc(item.source) + '<br>Data through ' +

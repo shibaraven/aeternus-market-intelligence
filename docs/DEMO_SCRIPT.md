@@ -1,50 +1,74 @@
-# Demo Script — Under Three Minutes
+# Final Demo Narration
 
-Target duration: approximately 2 minutes 30 seconds. Use **Fixed Demo** so the recording is reproducible.
+Voiceover duration: **2:20.795**. The edited video adds a short title card and end card while remaining below three minutes. Timing comes from the generated subtitle file, not an estimated reading speed.
 
-## 0:00–0:25 — Problem
+## 0:02.000–0:10.873
 
-“Investment research usually scatters charts, company facts, risk, and backtests across separate tools. A language model can summarize them, but a confident number is not useful unless we can trace it. Aeternus Market Intelligence keeps every financial calculation in deterministic code and uses GPT-5.6 to coordinate and explain the evidence.”
+Investment research often scatters charts, company facts, risk metrics, and backtests across separate tools, slowing decisions and hiding important context.
 
-Show the existing dashboard briefly, then select **AI Research**.
+## 0:11.193–0:18.026
 
-## 0:25–0:50 — Workflow
+A language model can summarize that material, but a confident figure is not useful unless its origin and calculation can be inspected.
 
-“This is the new Build Week research page. A user selects a mode, market, symbol, period, and asks a research question. For this reliable judge path I am using `AET-DEMO`: a clearly labeled synthetic dataset fixed through June 30, 2026. It is not presented as live market data.”
+## 0:18.346–0:25.574
 
-Keep the preconfigured question and press **Run AI Research**.
+Aeternus Market Intelligence brings the workflow together while keeping every financial calculation inside deterministic, testable application code.
 
-## 0:50–1:20 — Tools and GPT-5.6
+## 0:25.894–0:31.887
 
-“The same research boundary exposes strict tools for symbol validation, profile and price history, fundamentals, technical indicators, risk, strategy backtests, comparison, and evidence lookup. In live mode, GPT-5.6 Sol uses the Responses API to plan and coordinate those tools. It cannot create the displayed figures. Its structured synthesis must cite real evidence IDs, and the server rejects unmatched numerical claims.”
+A user chooses the data mode, market, symbol, period, and research question from one focused AI Research screen.
 
-Point to the visible progress state and seven-step tool timeline.
+## 0:32.207–0:42.710
 
-“This credential-free demo uses the deterministic fallback and says `GPT not used`; it does not pretend a model call happened.”
+This live result was coordinated by GPT-5.6 through the OpenAI Responses API. The model selected and called strict analytical tools, but it was not allowed to invent the displayed figures.
 
-## 1:20–2:05 — Result
+## 0:43.030–0:50.253
 
-“The report combines technical, fundamental, backtest, and risk views. Each evidence card shows its value, unit, date, source, and method. The comparison compounds buy-and-hold and the SMA20/SMA50 rule, shifts the signal one session to avoid same-close look-ahead, and states transaction costs.”
+The completed result identifies the actual model, shows every tool call, and links its structured synthesis back to stable evidence IDs.
 
-Scroll through:
+## 0:50.573–1:00.090
 
-- data-as-of and analysis period
-- technical and financial evidence
-- buy-and-hold versus SMA20/SMA50 evidence
-- risk evidence and assumptions
-- bull case, bear case, and conflicting signals
-- uncertainties and further questions
+Price history, fundamentals, technical indicators, risk, and strategy comparisons are calculated by code; GPT handles planning, comparison, and evidence-grounded explanation.
 
-“There is no unexplained buy or sell instruction. Conflicts and uncertainty are first-class output.”
+## 1:00.410–1:08.458
 
-## 2:05–2:30 — Codex and limitations
+For a reliable judge path, the application includes a clearly labeled fixed synthetic demo that requires no API key and never pretends that GPT was called.
 
-“Codex audited the original Flask repository, preserved its working features, added this isolated agent boundary, tests, packaging, and reviewer documentation, then validated both source and frozen Windows builds. The main limitations are that live data depends on Yahoo Finance, fundamental provenance may be incomplete, backtests are historical and simplified, and the synthetic demo cannot support a real investment conclusion.”
+## 1:08.778–1:16.071
 
-End on the disclaimer.
+The AET-DEMO scenario is reproducible, fixed through June thirtieth, twenty twenty-six, and explicitly separated from current market data.
 
-“This is research and education software. It does not execute trades or guarantee outcomes.”
+## 1:16.391–1:25.208
 
-## Optional live-mode variation
+The report combines technical, fundamental, backtest, and risk views. Every evidence card shows its value, unit, date, source, method, and identifier.
 
-If an OpenAI key is configured and network access is reliable, switch to **Live GPT**, choose a matching real symbol, and ask a concise question. Point out the `gpt_used: true`/model badge in the result. Keep the fixed demo as the recorded fallback and never display the key.
+## 1:25.528–1:33.921
+
+The comparison compounds buy-and-hold against the SMA twenty and SMA fifty crossover, shifts signals one session, and states transaction-cost assumptions.
+
+## 1:34.241–1:41.569
+
+Bull and bear cases appear together with conflicting signals, uncertainties, follow-up questions, data limitations, and a visible financial disclaimer.
+
+## 1:41.889–1:50.072
+
+The execution timeline provides a compact audit trail, while the server rejects missing evidence categories, unknown citations, and unmatched numerical claims.
+
+## 1:50.392–2:00.744
+
+Codex audited the existing Flask application, preserved its working features, added the isolated agent boundary and interface, and strengthened tests, packaging, and reviewer documentation.
+
+## 2:01.064–2:09.762
+
+Automated tests cover the deterministic math, tool scope, structured parsing, evidence enforcement, API behavior, and the credential-free demo path.
+
+## 2:10.082–2:20.795
+
+Live data still depends on external providers, and backtests remain historical and simplified. The application does not execute trades, and historical performance does not guarantee future results.
+
+## Production notes
+
+- Scene B may use only the sanitized result created by a successful genuine `gpt-5.6-sol` validation. The recorder fails closed if that record is missing or invalid.
+- The fixed demo is shown with `SYNTHETIC DEMO` and `Deterministic fallback · GPT not called` visible.
+- Do not record a terminal, environment variable, browser profile, credential, or private local path.
+- Use `submission-artifacts/audio/aeternus_voiceover.srt` as the timing authority.
