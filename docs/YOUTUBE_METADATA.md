@@ -46,6 +46,15 @@ Update these timestamps from the final encoded MP4 if editing changes a boundary
 
 `docs/devpost/gallery/01-cover.png`
 
+## Upload settings
+
+- Video: `submission-artifacts/Aeternus_OpenAI_Build_Week_Demo.mp4`
+- Captions: upload `submission-artifacts/audio/aeternus_voiceover.srt` as English
+- Video language: English
+- Category: Science & Technology
+- Audience: not made for kids
+- Visibility: Public, but select **Publish** only after the user gives final confirmation
+
 ## Suggested tags
 
 OpenAI Build Week, GPT-5.6, OpenAI Responses API, AI agent, function calling, structured outputs, market intelligence, evidence grounded AI, Flask, Python, deterministic analytics, backtesting, Codex

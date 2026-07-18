@@ -5,7 +5,7 @@ This checklist records observed state. Do not change an item to `[x]` until the 
 ## Repository and documentation
 
 - [x] Public repository URL is documented: `https://github.com/shibaraven/aeternus-market-intelligence`.
-- [ ] GitHub default branch opens directly to the final Build Week version.
+- [x] GitHub default branch opens directly to the final Build Week version.
 - [x] README explains purpose, installation, Fixed Demo, GPT-5.6, Codex, tests, limitations, and disclaimer.
 - [x] Judge instructions are in `docs/JUDGE_TESTING_GUIDE.md`.
 - [x] Architecture and validation documentation are present.
@@ -58,11 +58,11 @@ This checklist records observed state. Do not change an item to `[x]` until the 
 - [x] Large video, audio, raw recording, and judge ZIP remain ignored and uncommitted.
 - [x] `build-week-2026` is pushed without force-pushing unrelated history.
 - [x] `pre-build-week-2026` tag is created from the preserved pre-Build-Week main commit and pushed.
-- [ ] `build-week-2026` is merged into `main` only after every technical gate passes.
-- [ ] `main` is pushed and remains the GitHub default branch.
-- [ ] YouTube upload metadata, thumbnail, and Public visibility are prepared.
+- [x] `build-week-2026` is merged into `main` only after every technical gate passes.
+- [x] `main` is pushed and remains the GitHub default branch.
+- [x] YouTube upload metadata, thumbnail, captions, and Public visibility are prepared.
 - [ ] User explicitly confirms the irreversible YouTube **Publish** action.
 - [ ] Published YouTube URL is added to Devpost.
-- [ ] Devpost story, repository, judge instructions, gallery, and optional package are prepared.
+- [x] Devpost story, repository, judge instructions, gallery, and optional package are prepared locally for upload.
 - [ ] User explicitly confirms the irreversible Devpost **Submit Project** action.
 - [ ] Run `/feedback` in this Codex task and copy the real Session ID into Devpost; do not fabricate one.
