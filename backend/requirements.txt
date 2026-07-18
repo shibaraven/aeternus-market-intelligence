@@ -1,0 +1,15 @@
+flask
+flask-cors
+yfinance
+pandas
+numpy
+requests
+openpyxl
+certifi
+curl_cffi
+multitasking
+lxml
+beautifulsoup4
+appdirs
+frozendict
+peewee
