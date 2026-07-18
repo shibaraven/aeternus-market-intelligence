@@ -26,12 +26,14 @@ if command -v python3.13 >/dev/null 2>&1; then
   PY_BOOT="python3.13"
 elif command -v python3.12 >/dev/null 2>&1; then
   PY_BOOT="python3.12"
+elif command -v python3.11 >/dev/null 2>&1; then
+  PY_BOOT="python3.11"
 elif command -v python3 >/dev/null 2>&1; then
   PY_BOOT="python3"
 elif command -v python >/dev/null 2>&1; then
   PY_BOOT="python"
 else
-  echo "[ERROR] Python not found. Please install Python 3.12 or 3.13."
+  echo "[ERROR] Python not found. Please install Python 3.11, 3.12, or 3.13."
   exit 1
 fi
 
@@ -54,12 +56,6 @@ export AETERNUS_FRONTEND="$(pwd)/frontend"
 
 echo "[3/4] Starting server..."
 echo "[4/4] Browser will open at http://127.0.0.1:5000"
-
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  (sleep 2 && open "http://127.0.0.1:5000") >/dev/null 2>&1 &
-elif command -v xdg-open >/dev/null 2>&1; then
-  (sleep 2 && xdg-open "http://127.0.0.1:5000") >/dev/null 2>&1 &
-fi
 
 echo "Press Ctrl+C to stop the server."
 "$PY_EXE" backend/main.py

@@ -78,5 +78,6 @@ if __name__ == "__main__":
     print("  http://127.0.0.1:5000")
     print("  Close this window or press Ctrl+C to stop the server")
     print("=" * 60)
-    threading.Thread(target=open_browser, daemon=True).start()
+    if os.environ.get("AETERNUS_NO_BROWSER") != "1":
+        threading.Thread(target=open_browser, daemon=True).start()
     flask_app_module.app.run(host="127.0.0.1", port=5000, debug=False, use_reloader=False)

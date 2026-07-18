@@ -6,6 +6,28 @@ import numpy as np
 import json, os, time, sqlite3, threading
 from datetime import datetime, timedelta
 from contextlib import contextmanager
+from research_agent import (
+    GPTResearchAgent,
+    MissingOpenAIKey,
+    ResearchAgentError,
+    ResearchOutputError,
+    configured_model,
+    configured_reasoning_effort,
+    openai_is_configured,
+    run_deterministic_demo,
+)
+from research_tools import (
+    DEFAULT_SYMBOLS as RESEARCH_DEFAULT_SYMBOLS,
+    DEMO_MARKET,
+    DEMO_SCENARIO,
+    DEMO_SYMBOL,
+    MARKET_CONFIG as RESEARCH_MARKET_CONFIG,
+    PERIOD_OBSERVATIONS as RESEARCH_PERIODS,
+    ResearchDataUnavailable,
+    ResearchToolbox,
+    ResearchValidationError,
+    validate_research_request,
+)
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 DATA_DIR = os.path.abspath(
@@ -16,7 +38,11 @@ FRONTEND_DIR = os.path.abspath(
 )
 
 app = Flask(__name__, static_folder=FRONTEND_DIR, static_url_path='')
-CORS(app)
+app.config['MAX_CONTENT_LENGTH'] = 128 * 1024
+CORS(app, resources={r'/api/*': {'origins': [
+    'http://127.0.0.1:5000',
+    'http://localhost:5000',
+]}})
 os.makedirs(DATA_DIR, exist_ok=True)
 
 # ── SQLite Setup ─────────────────────────────────────────────────
@@ -335,6 +361,9 @@ def get_fundamentals(code):
         t=yf.Ticker(code)
         info=t.info
         return {
+            'long_name':   info.get('longName') or info.get('shortName') or code,
+            'currency':    info.get('currency') or info.get('financialCurrency'),
+            'exchange':    info.get('exchange') or info.get('fullExchangeName'),
             'pe_ratio':    sf(info.get('trailingPE') or info.get('forwardPE')),
             'eps':         sf(info.get('trailingEps')),
             'dividend_yield': sf((info.get('dividendYield') or 0)*100,2),
@@ -2781,8 +2810,9 @@ def _schedule_weekly():
     timer.daemon = True
     timer.start()
 
-# Start scheduler when app loads
-_schedule_weekly()
+# Start scheduler when app loads, except in isolated tests and tooling.
+if os.environ.get('AETERNUS_DISABLE_BACKGROUND_TASKS') != '1':
+    _schedule_weekly()
 
 
 @app.route('/api/report/generate', methods=['POST'])
@@ -2831,6 +2861,118 @@ def get_report(filename):
         return jsonify({'error': 'Not found'}), 404
     with open(fpath, encoding='utf-8') as f:
         return jsonify(json.load(f))
+
+
+# ════════════════════════════════════════════════════════════════
+#  BUILD WEEK: EVIDENCE-GROUNDED GPT-5.6 RESEARCH AGENT
+# ════════════════════════════════════════════════════════════════
+
+@app.route('/api/research/config', methods=['GET'])
+def research_config():
+    """Return public research configuration without exposing credentials."""
+    try:
+        effort = configured_reasoning_effort()
+        config_error = None
+    except ResearchValidationError as exc:
+        effort = None
+        config_error = str(exc)
+    return jsonify({
+        'openai_configured': openai_is_configured(),
+        'model': configured_model(),
+        'reasoning_effort': effort,
+        'configuration_error': config_error,
+        'markets': [
+            {'id': key, 'label': value['label'], 'currency': value['currency']}
+            for key, value in RESEARCH_MARKET_CONFIG.items()
+        ],
+        'periods': list(RESEARCH_PERIODS.keys()),
+        'demo': {
+            'symbol': DEMO_SYMBOL,
+            'market': DEMO_MARKET,
+            'period': '1y',
+            'question': DEMO_SCENARIO,
+            'data_as_of': '2026-06-30',
+            'data_mode': 'synthetic_demo',
+            'credential_free_fallback': True,
+        },
+    })
+
+
+@app.route('/api/research/symbols', methods=['GET'])
+def research_symbols():
+    market = (request.args.get('market') or '').strip().lower()
+    if market not in RESEARCH_DEFAULT_SYMBOLS:
+        return jsonify({
+            'error': {'code': 'invalid_market', 'message': 'Unsupported research market.'}
+        }), 400
+    return jsonify({
+        'market': market,
+        'symbols': RESEARCH_DEFAULT_SYMBOLS[market],
+        'demo_mode': market == DEMO_MARKET,
+    })
+
+
+@app.route('/api/research/run', methods=['POST'])
+def run_research_agent():
+    """Run deterministic tools and an optional GPT-5.6 structured synthesis."""
+    payload = request.get_json(silent=True)
+    if not isinstance(payload, dict):
+        return jsonify({
+            'error': {'code': 'invalid_json', 'message': 'A JSON request body is required.'}
+        }), 400
+
+    try:
+        validated = validate_research_request(
+            payload.get('symbol'),
+            payload.get('market'),
+            payload.get('period'),
+            payload.get('question'),
+            payload.get('demo_mode', False),
+        )
+        prefer_gpt = payload.get('prefer_gpt', True)
+        if not isinstance(prefer_gpt, bool):
+            raise ResearchValidationError('prefer_gpt must be a boolean.')
+
+        toolbox = ResearchToolbox(
+            validated,
+            history_loader=get_df,
+            profile_loader=get_fundamentals,
+        )
+        if validated.demo_mode and (not prefer_gpt or not openai_is_configured()):
+            report = run_deterministic_demo(validated, toolbox)
+        else:
+            report = GPTResearchAgent().run(validated, toolbox)
+        return jsonify(report)
+    except ResearchValidationError as exc:
+        return jsonify({
+            'error': {'code': 'invalid_request', 'message': str(exc)}
+        }), 400
+    except ResearchDataUnavailable as exc:
+        return jsonify({
+            'error': {'code': 'data_unavailable', 'message': str(exc)}
+        }), 404
+    except MissingOpenAIKey as exc:
+        return jsonify({
+            'error': {'code': 'missing_api_key', 'message': str(exc)}
+        }), 503
+    except ResearchOutputError as exc:
+        print(f'[ResearchOutput] {exc}')
+        return jsonify({
+            'error': {
+                'code': 'unverified_model_output',
+                'message': 'GPT output could not be verified against deterministic evidence.',
+            }
+        }), 502
+    except ResearchAgentError as exc:
+        print(f'[ResearchAgent] {exc}')
+        return jsonify({
+            'error': {'code': 'agent_failed', 'message': 'The research agent did not complete.'}
+        }), 502
+    except Exception as exc:
+        print(f'[ResearchAgentUnexpected] {type(exc).__name__}: {exc}')
+        return jsonify({
+            'error': {'code': 'provider_error', 'message': 'The research provider request failed.'}
+        }), 502
 
 # ════════════════════════════════════════════════════════════════
 #  OLLAMA AI PROXY
@@ -2942,8 +3084,9 @@ def _auto_check_alerts():
         except Exception as e:
             print(f'[AlertThread] error: {e}')
 
-_alert_thread = threading.Thread(target=_auto_check_alerts, daemon=True)
-_alert_thread.start()
+if os.environ.get('AETERNUS_DISABLE_BACKGROUND_TASKS') != '1':
+    _alert_thread = threading.Thread(target=_auto_check_alerts, daemon=True)
+    _alert_thread.start()
 
 if __name__ == '__main__':
     _migrate_alerts_table()
@@ -2967,7 +3110,7 @@ if __name__ == '__main__':
     app.run(
         debug=False,
         port=5000,
-        host='0.0.0.0',
+        host='127.0.0.1',
         use_reloader=False,
         threaded=True,
     )

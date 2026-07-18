@@ -10,14 +10,13 @@ echo.
 py --version >nul 2>&1
 if errorlevel 1 (
     echo [ERROR] Python not found.
-    echo Please install Python 3.12 or 3.13 and enable Add Python to PATH.
+    echo Please install Python 3.11, 3.12, or 3.13 and enable Add Python to PATH.
     pause
     exit /b 1
 )
 
-echo [1/3] Installing packages...
-py -m pip install --upgrade pyinstaller --quiet --disable-pip-version-check
-py -m pip install -r "backend\requirements.txt" --quiet --disable-pip-version-check
+echo [1/3] Installing pinned build packages...
+py -m pip install -r "backend\requirements-dev.txt" --quiet --disable-pip-version-check
 if errorlevel 1 (
     echo [ERROR] Package installation failed.
     pause
