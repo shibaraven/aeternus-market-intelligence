@@ -1,0 +1,795 @@
+{
+  "analysis_period": {
+    "end": "2026-06-30",
+    "start": "2025-07-14"
+  },
+  "backtest_view": {
+    "assessment": "Buy and hold produced the stronger historical return, while the crossover rule showed lower drawdown in the tested synthetic period.",
+    "evidence": [
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.buy_and_hold.total_return_pct",
+        "label": "Buy and hold total return pct",
+        "methodology": "Compounded net daily strategy returns over the tested period.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 25.27
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.buy_and_hold.annualized_return_pct",
+        "label": "Buy and hold annualized return pct",
+        "methodology": "Geometric annualization of the ending equity using 252 sessions.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 25.38
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.buy_and_hold.annualized_volatility_pct",
+        "label": "Buy and hold annualized volatility pct",
+        "methodology": "Sample standard deviation of net daily strategy returns × sqrt(252).",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 5.34
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.buy_and_hold.max_drawdown_pct",
+        "label": "Buy and hold max drawdown pct",
+        "methodology": "Minimum strategy equity/rolling-peak minus one.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": -8.96
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.buy_and_hold.number_of_trades",
+        "label": "Buy and hold number of trades",
+        "methodology": "Long entries observed in the executed position series, including an open trade.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "count",
+        "value": 1
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.sma20_sma50.total_return_pct",
+        "label": "SMA20/SMA50 total return pct",
+        "methodology": "Compounded net daily strategy returns over the tested period.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 11.99
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.sma20_sma50.annualized_return_pct",
+        "label": "SMA20/SMA50 annualized return pct",
+        "methodology": "Geometric annualization of the ending equity using 252 sessions.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 12.04
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.sma20_sma50.annualized_volatility_pct",
+        "label": "SMA20/SMA50 annualized volatility pct",
+        "methodology": "Sample standard deviation of net daily strategy returns × sqrt(252).",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 4.02
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.sma20_sma50.max_drawdown_pct",
+        "label": "SMA20/SMA50 max drawdown pct",
+        "methodology": "Minimum strategy equity/rolling-peak minus one.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": -5.31
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "backtest",
+        "id": "backtest.sma20_sma50.win_rate_pct",
+        "label": "SMA20/SMA50 win rate pct",
+        "methodology": "Profitable completed trades divided by completed trades.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 50.0
+      }
+    ]
+  },
+  "bear_case": [
+    "Latest momentum and moving-average evidence are weak.",
+    "The crossover strategy lagged the passive comparison in historical return."
+  ],
+  "bull_case": [
+    "The full-period trend remains positive.",
+    "The rule-based strategy reduced historical drawdown in this scenario."
+  ],
+  "conflicting_signals": [
+    "Positive full-period performance conflicts with weak latest technical momentum.",
+    "Lower strategy drawdown conflicts with lower strategy return."
+  ],
+  "currency": "USD",
+  "data_as_of": "2026-06-30",
+  "data_mode": "synthetic_demo",
+  "demo_indicator": "SYNTHETIC DEMO — fixed educational values, not current market data",
+  "demo_mode": true,
+  "disclaimer": "For research and educational purposes only. This application does not execute trades, does not provide personalized investment advice, does not guarantee outcomes, and historical performance does not guarantee future results.",
+  "evidence_catalog": [
+    {
+      "as_of": "2025-07-14",
+      "category": "price",
+      "id": "price.first_close",
+      "label": "First close in analysis period",
+      "methodology": "Provider closing price at the first usable observation.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 94.9708
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "price",
+      "id": "price.last_close",
+      "label": "Latest close in analysis period",
+      "methodology": "Provider closing price at the last usable observation.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 119.086
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "fundamental",
+      "id": "fundamental.market_cap",
+      "label": "Market Cap",
+      "methodology": "Fixed synthetic value for the Build Week demonstration.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 12500000000.0
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "fundamental",
+      "id": "fundamental.pe_ratio",
+      "label": "Pe Ratio",
+      "methodology": "Fixed synthetic value for the Build Week demonstration.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "ratio",
+      "value": 22.4
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "fundamental",
+      "id": "fundamental.revenue",
+      "label": "Revenue",
+      "methodology": "Fixed synthetic value for the Build Week demonstration.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 4200000000.0
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "fundamental",
+      "id": "fundamental.profit_margin_pct",
+      "label": "Profit Margin Pct",
+      "methodology": "Fixed synthetic value for the Build Week demonstration.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 14.8
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "fundamental",
+      "id": "fundamental.debt_to_equity_pct",
+      "label": "Debt To Equity Pct",
+      "methodology": "Fixed synthetic value for the Build Week demonstration.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 35.0
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.close",
+      "label": "Latest close",
+      "methodology": "Provider closing price.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 119.086
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.sma20",
+      "label": "20-session simple moving average",
+      "methodology": "Arithmetic mean of 20 closes.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 122.4401
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.sma50",
+      "label": "50-session simple moving average",
+      "methodology": "Arithmetic mean of 50 closes.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 120.8606
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.price_vs_sma50_pct",
+      "label": "Close versus 50-session average",
+      "methodology": "(latest close / SMA50 - 1) × 100.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": -1.47
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.rsi14",
+      "label": "14-session RSI",
+      "methodology": "Simple-average 14-session RSI.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "index",
+      "value": 6.16
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.macd",
+      "label": "MACD",
+      "methodology": "EMA12 minus EMA26.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": -0.1326
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.macd_signal",
+      "label": "MACD signal",
+      "methodology": "Nine-session EMA of MACD.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 0.5237
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.volume_ratio20",
+      "label": "Volume versus 20-session average",
+      "methodology": "Latest volume divided by 20-session mean volume.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "ratio",
+      "value": 0.87
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.support20",
+      "label": "20-session support",
+      "methodology": "Minimum close over 20 sessions.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 119.086
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "technical",
+      "id": "technical.resistance20",
+      "label": "20-session resistance",
+      "methodology": "Maximum close over 20 sessions.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "USD",
+      "value": 123.9238
+    },
+    {
+      "as_of": "2026-04-13",
+      "category": "technical",
+      "id": "technical.latest_sma_cross",
+      "label": "Latest SMA20/SMA50 crossover",
+      "methodology": "Last sign change in SMA20 minus SMA50; no forward-looking data.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "signal",
+      "value": "bullish"
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "risk",
+      "id": "risk.total_return_pct",
+      "label": "Total return",
+      "methodology": "Latest close divided by first close minus one.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 25.39
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "risk",
+      "id": "risk.annualized_return_pct",
+      "label": "Annualized return",
+      "methodology": "Geometric annualization using 252 trading sessions.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 25.51
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "risk",
+      "id": "risk.annualized_volatility_pct",
+      "label": "Annualized volatility",
+      "methodology": "Sample standard deviation of daily returns × sqrt(252).",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 5.34
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "risk",
+      "id": "risk.max_drawdown_pct",
+      "label": "Maximum drawdown",
+      "methodology": "Minimum equity/rolling-peak minus one over the tested period.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": -8.96
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "risk",
+      "id": "risk.sharpe_ratio",
+      "label": "Sharpe ratio",
+      "methodology": "Daily excess return with 2.00% annual risk-free assumption, annualized by sqrt(252).",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "ratio",
+      "value": 3.9
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.buy_and_hold.total_return_pct",
+      "label": "Buy and hold total return pct",
+      "methodology": "Compounded net daily strategy returns over the tested period.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 25.27
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.buy_and_hold.annualized_return_pct",
+      "label": "Buy and hold annualized return pct",
+      "methodology": "Geometric annualization of the ending equity using 252 sessions.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 25.38
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.buy_and_hold.annualized_volatility_pct",
+      "label": "Buy and hold annualized volatility pct",
+      "methodology": "Sample standard deviation of net daily strategy returns × sqrt(252).",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 5.34
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.buy_and_hold.max_drawdown_pct",
+      "label": "Buy and hold max drawdown pct",
+      "methodology": "Minimum strategy equity/rolling-peak minus one.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": -8.96
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.buy_and_hold.number_of_trades",
+      "label": "Buy and hold number of trades",
+      "methodology": "Long entries observed in the executed position series, including an open trade.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "count",
+      "value": 1
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.sma20_sma50.total_return_pct",
+      "label": "SMA20/SMA50 total return pct",
+      "methodology": "Compounded net daily strategy returns over the tested period.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 11.99
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.sma20_sma50.annualized_return_pct",
+      "label": "SMA20/SMA50 annualized return pct",
+      "methodology": "Geometric annualization of the ending equity using 252 sessions.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 12.04
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.sma20_sma50.annualized_volatility_pct",
+      "label": "SMA20/SMA50 annualized volatility pct",
+      "methodology": "Sample standard deviation of net daily strategy returns × sqrt(252).",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 4.02
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.sma20_sma50.max_drawdown_pct",
+      "label": "SMA20/SMA50 max drawdown pct",
+      "methodology": "Minimum strategy equity/rolling-peak minus one.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": -5.31
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.sma20_sma50.win_rate_pct",
+      "label": "SMA20/SMA50 win rate pct",
+      "methodology": "Profitable completed trades divided by completed trades.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "%",
+      "value": 50.0
+    },
+    {
+      "as_of": "2026-06-30",
+      "category": "backtest",
+      "id": "backtest.sma20_sma50.number_of_trades",
+      "label": "SMA20/SMA50 number of trades",
+      "methodology": "Long entries observed in the executed position series, including an open trade.",
+      "source": "Aeternus deterministic synthetic generator v1",
+      "unit": "count",
+      "value": 3
+    }
+  ],
+  "executive_summary": "The synthetic series has a positive full-period return, while current momentum is weaker than the longer trend. The crossover strategy reduced historical drawdown but did not outperform buy and hold in this fixed scenario.",
+  "fundamental_view": {
+    "assessment": "The displayed fundamentals are scenario inputs only and cannot validate a real company.",
+    "evidence": [
+      {
+        "as_of": "2026-06-30",
+        "category": "fundamental",
+        "id": "fundamental.market_cap",
+        "label": "Market Cap",
+        "methodology": "Fixed synthetic value for the Build Week demonstration.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "USD",
+        "value": 12500000000.0
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "fundamental",
+        "id": "fundamental.pe_ratio",
+        "label": "Pe Ratio",
+        "methodology": "Fixed synthetic value for the Build Week demonstration.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "ratio",
+        "value": 22.4
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "fundamental",
+        "id": "fundamental.revenue",
+        "label": "Revenue",
+        "methodology": "Fixed synthetic value for the Build Week demonstration.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "USD",
+        "value": 4200000000.0
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "fundamental",
+        "id": "fundamental.profit_margin_pct",
+        "label": "Profit Margin Pct",
+        "methodology": "Fixed synthetic value for the Build Week demonstration.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 14.8
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "fundamental",
+        "id": "fundamental.debt_to_equity_pct",
+        "label": "Debt To Equity Pct",
+        "methodology": "Fixed synthetic value for the Build Week demonstration.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 35.0
+      }
+    ]
+  },
+  "gpt_used": false,
+  "market": "demo",
+  "model": null,
+  "profile_name": "Aeternus Synthetic Industries",
+  "questions_for_further_research": [
+    "Would the conclusions persist under different cost assumptions?",
+    "How sensitive is the crossover result to the selected period?"
+  ],
+  "research_question": "Assess whether the synthetic company's improving momentum is supported by risk and SMA crossover backtest evidence.",
+  "risk_view": {
+    "assessment": "The synthetic path experienced a material drawdown despite its positive total return.",
+    "evidence": [
+      {
+        "as_of": "2026-06-30",
+        "category": "risk",
+        "id": "risk.total_return_pct",
+        "label": "Total return",
+        "methodology": "Latest close divided by first close minus one.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 25.39
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "risk",
+        "id": "risk.annualized_return_pct",
+        "label": "Annualized return",
+        "methodology": "Geometric annualization using 252 trading sessions.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 25.51
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "risk",
+        "id": "risk.annualized_volatility_pct",
+        "label": "Annualized volatility",
+        "methodology": "Sample standard deviation of daily returns × sqrt(252).",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": 5.34
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "risk",
+        "id": "risk.max_drawdown_pct",
+        "label": "Maximum drawdown",
+        "methodology": "Minimum equity/rolling-peak minus one over the tested period.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": -8.96
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "risk",
+        "id": "risk.sharpe_ratio",
+        "label": "Sharpe ratio",
+        "methodology": "Daily excess return with 2.00% annual risk-free assumption, annualized by sqrt(252).",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "ratio",
+        "value": 3.9
+      }
+    ]
+  },
+  "source": "Aeternus deterministic synthetic generator v1",
+  "symbol": "AET-DEMO",
+  "synthesis_mode": "deterministic_demo_fallback",
+  "technical_view": {
+    "assessment": "Latest momentum is weak and price is below the longer moving average, which conflicts with the positive full-period trend.",
+    "evidence": [
+      {
+        "as_of": "2026-06-30",
+        "category": "technical",
+        "id": "technical.close",
+        "label": "Latest close",
+        "methodology": "Provider closing price.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "USD",
+        "value": 119.086
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "technical",
+        "id": "technical.sma20",
+        "label": "20-session simple moving average",
+        "methodology": "Arithmetic mean of 20 closes.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "USD",
+        "value": 122.4401
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "technical",
+        "id": "technical.sma50",
+        "label": "50-session simple moving average",
+        "methodology": "Arithmetic mean of 50 closes.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "USD",
+        "value": 120.8606
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "technical",
+        "id": "technical.price_vs_sma50_pct",
+        "label": "Close versus 50-session average",
+        "methodology": "(latest close / SMA50 - 1) × 100.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "%",
+        "value": -1.47
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "technical",
+        "id": "technical.rsi14",
+        "label": "14-session RSI",
+        "methodology": "Simple-average 14-session RSI.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "index",
+        "value": 6.16
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "technical",
+        "id": "technical.macd",
+        "label": "MACD",
+        "methodology": "EMA12 minus EMA26.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "USD",
+        "value": -0.1326
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "technical",
+        "id": "technical.macd_signal",
+        "label": "MACD signal",
+        "methodology": "Nine-session EMA of MACD.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "USD",
+        "value": 0.5237
+      },
+      {
+        "as_of": "2026-06-30",
+        "category": "technical",
+        "id": "technical.volume_ratio20",
+        "label": "Volume versus 20-session average",
+        "methodology": "Latest volume divided by 20-session mean volume.",
+        "source": "Aeternus deterministic synthetic generator v1",
+        "unit": "ratio",
+        "value": 0.87
+      }
+    ]
+  },
+  "tool_timeline": [
+    {
+      "arguments": {
+        "market": "demo",
+        "query": "AET-DEMO"
+      },
+      "call_id": null,
+      "completed_at": "2026-07-18T15:10:56.812Z",
+      "error": null,
+      "sequence": 1,
+      "started_at": "2026-07-18T15:10:56.812Z",
+      "status": "completed",
+      "summary": "Produced 0 evidence records.",
+      "tool": "search_symbol"
+    },
+    {
+      "arguments": {
+        "market": "demo",
+        "symbol": "AET-DEMO"
+      },
+      "call_id": null,
+      "completed_at": "2026-07-18T15:10:56.812Z",
+      "error": null,
+      "sequence": 2,
+      "started_at": "2026-07-18T15:10:56.812Z",
+      "status": "completed",
+      "summary": "Produced 0 evidence records.",
+      "tool": "get_symbol_profile"
+    },
+    {
+      "arguments": {
+        "market": "demo",
+        "period": "1y",
+        "symbol": "AET-DEMO"
+      },
+      "call_id": null,
+      "completed_at": "2026-07-18T15:10:56.812Z",
+      "error": null,
+      "sequence": 3,
+      "started_at": "2026-07-18T15:10:56.812Z",
+      "status": "completed",
+      "summary": "Produced 2 evidence records.",
+      "tool": "get_price_history"
+    },
+    {
+      "arguments": {
+        "market": "demo",
+        "symbol": "AET-DEMO"
+      },
+      "call_id": null,
+      "completed_at": "2026-07-18T15:10:56.812Z",
+      "error": null,
+      "sequence": 4,
+      "started_at": "2026-07-18T15:10:56.812Z",
+      "status": "completed",
+      "summary": "Produced 5 evidence records.",
+      "tool": "get_financial_data"
+    },
+    {
+      "arguments": {
+        "market": "demo",
+        "period": "1y",
+        "symbol": "AET-DEMO"
+      },
+      "call_id": null,
+      "completed_at": "2026-07-18T15:10:56.812Z",
+      "error": null,
+      "sequence": 5,
+      "started_at": "2026-07-18T15:10:56.812Z",
+      "status": "completed",
+      "summary": "Produced 11 evidence records.",
+      "tool": "calculate_technical_indicators"
+    },
+    {
+      "arguments": {
+        "market": "demo",
+        "period": "1y",
+        "symbol": "AET-DEMO"
+      },
+      "call_id": null,
+      "completed_at": "2026-07-18T15:10:56.812Z",
+      "error": null,
+      "sequence": 6,
+      "started_at": "2026-07-18T15:10:56.812Z",
+      "status": "completed",
+      "summary": "Produced 5 evidence records.",
+      "tool": "calculate_risk_metrics"
+    },
+    {
+      "arguments": {
+        "market": "demo",
+        "period": "1y",
+        "symbol": "AET-DEMO",
+        "transaction_cost_bps": 10.0
+      },
+      "call_id": null,
+      "completed_at": "2026-07-18T15:10:56.812Z",
+      "error": null,
+      "sequence": 7,
+      "started_at": "2026-07-18T15:10:56.812Z",
+      "status": "completed",
+      "summary": "Produced 11 evidence records.",
+      "tool": "compare_strategy_results"
+    }
+  ],
+  "uncertainties": [
+    "The entire dataset and company profile are synthetic.",
+    "No inference from this scenario should be transferred to a real security.",
+    "Taxes, slippage, and separate dividend cash flows are not modeled."
+  ],
+  "warnings": [
+    "Historical performance does not guarantee future results.",
+    "Backtests may be affected by overfitting, data quality, and survivorship bias.",
+    "Transaction costs are modeled as stated; taxes and slippage are not modeled separately.",
+    "Every displayed demo value is synthetic and fixed through 2026-06-30."
+  ]
+}

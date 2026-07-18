@@ -1,16 +1,32 @@
 # -*- mode: python ; coding: utf-8 -*-
 
+from PyInstaller.utils.hooks import collect_submodules
+
+
+hiddenimports = [
+    'flask', 'flask_cors', 'yfinance', 'pandas', 'numpy', 'requests',
+    'multitasking', 'lxml', 'lxml.etree', 'bs4', 'appdirs', 'frozendict',
+    'peewee', 'werkzeug', 'werkzeug.serving', 'jinja2', 'click',
+    'charset_normalizer', 'certifi', 'urllib3', 'research_agent',
+    'research_tools', 'pydantic_core', 'pandas.core.arrays.masked',
+    'pandas.core.arrays.integer', 'pandas.core.arrays.floating',
+]
+hiddenimports += collect_submodules('openai')
+
 
 a = Analysis(
     ['backend\\main.py'],
     pathex=[],
     binaries=[],
     datas=[('frontend', 'frontend'), ('backend\\app.py', 'backend')],
-    hiddenimports=['flask', 'flask_cors', 'yfinance', 'pandas', 'numpy', 'requests', 'multitasking', 'lxml', 'lxml.etree', 'bs4', 'appdirs', 'frozendict', 'peewee', 'werkzeug', 'werkzeug.serving', 'jinja2', 'click', 'charset_normalizer', 'certifi', 'urllib3', 'pandas.core.arrays.masked', 'pandas.core.arrays.integer', 'pandas.core.arrays.floating'],
+    hiddenimports=hiddenimports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=['matplotlib', 'scipy', 'sklearn', 'tkinter', 'IPython'],
+    excludes=[
+        'matplotlib', 'scipy', 'sklearn', 'tkinter', 'IPython',
+        'pytest', '_pytest', 'hypothesis', 'mypy',
+    ],
     noarchive=False,
     optimize=0,
 )

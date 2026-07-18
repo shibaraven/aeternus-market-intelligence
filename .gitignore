@@ -22,6 +22,8 @@ data/*
 build_temp/
 build/
 dist/
+submission-artifacts/
+scripts/node_modules/
 
 # Local configuration
 .env

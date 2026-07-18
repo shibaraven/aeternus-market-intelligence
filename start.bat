@@ -39,12 +39,13 @@ if not exist "frontend\index.html" (
 set "PY_BOOT="
 py -3.13 --version >nul 2>&1 && set "PY_BOOT=py -3.13"
 if not defined PY_BOOT py -3.12 --version >nul 2>&1 && set "PY_BOOT=py -3.12"
+if not defined PY_BOOT py -3.11 --version >nul 2>&1 && set "PY_BOOT=py -3.11"
 if not defined PY_BOOT py --version >nul 2>&1 && set "PY_BOOT=py"
 if not defined PY_BOOT python --version >nul 2>&1 && set "PY_BOOT=python"
 
 if not defined PY_BOOT (
     echo [ERROR] Python not found.
-    echo Please install Python 3.12 or 3.13 from python.org, and enable Add Python to PATH.
+    echo Please install Python 3.11, 3.12, or 3.13 from python.org, and enable Add Python to PATH.
     pause
     exit /b 1
 )
