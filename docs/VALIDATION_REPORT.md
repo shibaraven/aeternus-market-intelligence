@@ -245,7 +245,7 @@ raw browser recording:         PASS — 1920×1080 / 139.240 seconds
 gallery:                       PASS — 6 of 6 PNGs / 1800×1200 / below 5 MB
 final MP4:                     PASS — 156.240 seconds / H.264 / AAC / 13,847,868 bytes
 final audio:                   PASS — -16.4 LUFS / true peak -1.4 dBFS
-judge ZIP:                     PASS — 15 files / 1,184,533 bytes
+judge ZIP:                     PASS — 15 files / below 35 MB
 submission readiness:          PASS — no failed checks
 ```
 
@@ -271,4 +271,27 @@ snapshot secret scan:           PASS
 packaged executable size:       18,361,552 bytes
 ```
 
-This rehearsal validates the present patched worktree without treating uncommitted content as a final Git clone. The final post-commit clone must still be run after the live GPT, media, and package gates pass.
+This rehearsal validated the patched worktree before the live GPT and media gates completed; it was superseded by the exact-commit clone below.
+
+### Final exact-commit clean clone
+
+After the implementation and post-commit validation fix were committed, `scripts/validate_clean_snapshot.ps1` cloned commit `ef81c99` into a new directory. The source worktree had no tracked or untracked patch to apply, so every product, dependency, and packaging result below came from the committed tree alone.
+
+Observed on 2026-07-19:
+
+```text
+fresh dependency installation: PASS (backend/requirements-dev.txt)
+fresh-venv pip check:           PASS
+npm ci / npm audit:             PASS / 0 vulnerabilities
+Playwright Chromium launch:     PASS
+fresh-venv pytest:              18 passed in 3.50s
+source app without API key:     PASS
+source Fixed Demo:              7 tools / 34 evidence / GPT false
+fresh PyInstaller build:        PASS
+packaged Fixed Demo:            7 tools / 34 evidence / GPT false
+packaged Evidence ID markup:    visible
+snapshot secret scan:           PASS
+packaged executable size:       18,361,682 bytes
+```
+
+This is the final clean-clone product validation. The follow-up documentation commit records these observed results and does not change application code, dependencies, packaging, or tests.

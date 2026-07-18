@@ -48,13 +48,13 @@ This checklist records observed state. Do not change an item to `[x]` until the 
 - [x] Current patched worktree passes a fresh-venv clean-snapshot rehearsal, including npm recorder install, tests, source Fixed Demo, fresh PyInstaller build, packaged Fixed Demo, and secret scan.
 - [x] Judge package contains all required documents, the successful live validation, a sanitized sample report, six gallery images, portable-build instructions, and SHA256 hashes.
 - [x] Judge ZIP is below 35 MB and contains no secret, `.env`, database, browser profile, cache, or unlicensed dataset.
-- [ ] Final clean clone installs from documented commands.
-- [ ] Final clean clone passes tests, source startup, Fixed Demo, judge workflow, and portable-build validation.
-- [ ] Final validation report contains the final clean-clone outputs.
+- [x] Final clean clone installs from documented commands.
+- [x] Final clean clone passes tests, source startup, Fixed Demo, judge workflow, and portable-build validation.
+- [x] Final validation report contains the final clean-clone outputs.
 
 ## Git and publishing
 
-- [ ] Appropriate source, script, documentation, test, and gallery changes are committed to `build-week-2026`.
+- [x] Appropriate source, script, documentation, test, and gallery changes are committed to `build-week-2026`.
 - [x] Large video, audio, raw recording, and judge ZIP remain ignored and uncommitted.
 - [ ] `build-week-2026` is pushed without force-pushing unrelated history.
 - [ ] `pre-build-week-2026` tag is created from the preserved pre-Build-Week main commit and pushed.
