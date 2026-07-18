@@ -56,8 +56,8 @@ This checklist records observed state. Do not change an item to `[x]` until the 
 
 - [x] Appropriate source, script, documentation, test, and gallery changes are committed to `build-week-2026`.
 - [x] Large video, audio, raw recording, and judge ZIP remain ignored and uncommitted.
-- [ ] `build-week-2026` is pushed without force-pushing unrelated history.
-- [ ] `pre-build-week-2026` tag is created from the preserved pre-Build-Week main commit and pushed.
+- [x] `build-week-2026` is pushed without force-pushing unrelated history.
+- [x] `pre-build-week-2026` tag is created from the preserved pre-Build-Week main commit and pushed.
 - [ ] `build-week-2026` is merged into `main` only after every technical gate passes.
 - [ ] `main` is pushed and remains the GitHub default branch.
 - [ ] YouTube upload metadata, thumbnail, and Public visibility are prepared.
