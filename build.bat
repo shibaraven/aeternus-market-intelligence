@@ -16,7 +16,7 @@ if errorlevel 1 (
 )
 
 echo [1/3] Installing pinned build packages...
-py -m pip install -r "backend\requirements-dev.txt" --quiet --disable-pip-version-check
+py -m pip install -r "backend\requirements-build.txt" --quiet --disable-pip-version-check
 if errorlevel 1 (
     echo [ERROR] Package installation failed.
     pause

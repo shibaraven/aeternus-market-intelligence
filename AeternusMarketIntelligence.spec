@@ -12,7 +12,6 @@ hiddenimports = [
     'pandas.core.arrays.integer', 'pandas.core.arrays.floating',
 ]
 hiddenimports += collect_submodules('openai')
-hiddenimports += collect_submodules('pydantic')
 
 
 a = Analysis(
@@ -24,7 +23,10 @@ a = Analysis(
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=['matplotlib', 'scipy', 'sklearn', 'tkinter', 'IPython'],
+    excludes=[
+        'matplotlib', 'scipy', 'sklearn', 'tkinter', 'IPython',
+        'pytest', '_pytest', 'hypothesis', 'mypy',
+    ],
     noarchive=False,
     optimize=0,
 )

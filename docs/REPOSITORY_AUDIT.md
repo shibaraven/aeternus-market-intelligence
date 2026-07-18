@@ -1,7 +1,8 @@
 # Repository Audit
 
-Audit date: 2026-07-18  
-Branch: `build-week-2026`  
+Audit date: 2026-07-18
+
+Branch: `build-week-2026`
 Baseline commit: `a570c8318c5c534f6e2244a2a99aa31c4bf7b029`
 
 ## Executive summary
